@@ -11,6 +11,7 @@ using System.Windows.Media;
 using cngrDice.ViewModels;
 using cngrDice.Commands;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace cngrDice.Models
 {
@@ -27,11 +28,17 @@ namespace cngrDice.Models
 
         List<List<int>> tiles;
 
-        DicesModel diceModel = new DicesModel();
+        public DicesModel diceModel = new DicesModel();
+        public Canvas DiceCanvas { get => diceModel.DiceCanvas; }
         Player player;
+        public ObservableCollection<Rectangle> HPData { get => player.HPData; }
+        public ObservableCollection<Rectangle> MPData { get => player.MPData; }
+        public ObservableCollection<Rectangle> APData { get => player.APData; }
         List<Enemy> enemies = new List<Enemy>();
-        int enemyMoveTime = 500;
-        public int AP { get => player.AP; set { player.AP = value; Notify(); } }
+        int enemyMoveTime = 160;
+        //public int AP { get => player.AP; set { player.AP = value; Notify(); } }
+        Thickness textPosition = new Thickness();
+        public Thickness TextPosition { get => textPosition; set => Set(ref textPosition, value); }
 
 
         public RelayCommandParameters Move { get => new(movePlayer); }
@@ -42,7 +49,10 @@ namespace cngrDice.Models
             int tile = tiles[shiftY][shiftX];
 
             player.Move(shiftX, shiftY, tile);
-            Notify(nameof(AP));
+            //Notify(nameof(AP));
+            textPosition.Left = player.X * 40 + 40;
+            textPosition.Top = player.Y * 40;
+            Notify(nameof(TextPosition));
         }
 
 
@@ -57,10 +67,15 @@ namespace cngrDice.Models
             int dice1 = rnd.Next(6);
             int dice2 = rnd.Next(6);
 
-            DiceImages[0] = diceModel.Images[dice1];
-            DiceImages[1] = diceModel.Images[dice2];
+            //DiceImages[0] = diceModel.Images[dice1];
+            //DiceImages[1] = diceModel.Images[dice2];
 
-            AP = dice1 + dice2 + 2;
+            diceModel.DropDices(dice1 + 1, dice2 + 1);
+            Notify(nameof(DiceCanvas));
+
+            player.SetAPData(dice1 + dice2 + 2);
+
+            //AP = dice1 + dice2 + 2;
 
             PlayerTurn = true;
         }
@@ -73,17 +88,31 @@ namespace cngrDice.Models
         {
             foreach (Enemy enemy in enemies)
             {
-                enemy.Move(tiles, shifts, enemyMoveTime);
+                enemy.Move(tiles, enemyMoveTime);
             }
 
-            AP = 0;
+            //AP = 0;
 
             //await Task.Run(() =>
             //{
             //    Thread.Sleep(enemyMoveTime * 4);
             //    PlayerTurn = false;
             //});
+
+            player.SetAPData(0);
+
             await Task.Delay(enemyMoveTime * 4);
+
+            foreach (Enemy enemy in enemies)
+            {
+                int x = enemy.X;
+                int lastX = enemy.LastX;
+                int y = enemy.Y;
+                int lastY = enemy.LastY;
+
+                tiles[lastY][lastX] = 0;
+                tiles[y][x] = 3;
+            }
 
             PlayerTurn = false;
         }
@@ -91,7 +120,7 @@ namespace cngrDice.Models
         string[] texts = new string[] { "1", "2", "3", "4" };
         int counter = 0;
 
-        string storyText;
+        string storyText = "";
 
         public string StoryText { get => storyText; set => Set(ref storyText, value); }
 
@@ -129,7 +158,7 @@ namespace cngrDice.Models
 
             StoryText = texts[0];
 
-            AP = 0;
+            //AP = 0;
         }
     }
 }

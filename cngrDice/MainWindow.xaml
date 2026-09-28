@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:cngrDice"
         xmlns:cnv="clr-namespace:cngrDice.Converters"
+        xmlns:ViewModel="clr-namespace:cngrDice.ViewModels"
         mc:Ignorable="d"
         Height="720" Width="1280" MinWidth="1280"
         FocusManager.FocusedElement="{Binding ElementName=MainControl}"
@@ -63,9 +64,12 @@
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Vertical">
-                <Rectangle Height="10" Width="{Binding HPWidth}" Margin="44,8,8,8" Fill="Red" HorizontalAlignment="Left"/>
-                <Rectangle Height="10" Width="{Binding MPWidth}" Margin="44,4,8,4" Fill="Blue" HorizontalAlignment="Left"/>
-                <Rectangle Height="10" Width="{Binding AP}" Margin="44,8,8,8" Fill="Green" HorizontalAlignment="Left"/>
+                <!--Rectangle Height="10" Width="{Binding HPData}" Margin="44,8,8,8" Fill="Red" HorizontalAlignment="Left"/-->
+                <ContentControl Content="{Binding HPData}"/>
+                <!--Rectangle Height="10" Width="{Binding MPData}" Margin="44,4,8,4" Fill="Blue" HorizontalAlignment="Left"/-->
+                <ContentControl Content="{Binding MPData}"/>
+                <!--Rectangle Height="10" Width="{Binding APData}" Margin="44,8,8,8" Fill="Green" HorizontalAlignment="Left"/-->
+                <ContentControl Content="{Binding APData}"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Horizontal">
                 <Border VerticalAlignment="Center" HorizontalAlignment="Left">
@@ -88,10 +92,13 @@
                 <Border.InputBindings>
                     <MouseBinding Command="{Binding DropDicesCommand}" MouseAction="LeftClick"/>
                 </Border.InputBindings>
-                <Grid>
+                <Canvas>
+                    <ContentControl Content="{Binding DiceCanvas}"/>
+                </Canvas>
+                <!--Grid>
                     <Image Width="48" Height="48" HorizontalAlignment="Left" Source="{Binding DiceImages[0]}"/>
                     <Image Width="48" Height="48" Source="{Binding DiceImages[1]}" HorizontalAlignment="Right"/>
-                </Grid>
+                </Grid-->
             </Border>
             <Button Grid.Column="2" Width="32" Height="32" Margin="0,0,8,0" HorizontalAlignment="Right" Command="{Binding SwitchTurn}" Focusable="False" IsEnabled="{Binding PlayerTurn}"/>
         </Grid>

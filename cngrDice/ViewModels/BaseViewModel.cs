@@ -13,7 +13,7 @@ namespace cngrDice.ViewModels
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected void Set<T>(ref T field, T value, [CallerMemberName]string name = "")
+        protected void Set<T>(ref T field, T value, [CallerMemberName] string name = "")
         {
             field = value;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
@@ -25,7 +25,7 @@ namespace cngrDice.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        protected void Notify([CallerMemberName]string name = "")
+        protected void Notify([CallerMemberName] string name = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }

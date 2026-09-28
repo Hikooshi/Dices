@@ -14,11 +14,14 @@ namespace cngrDice.Models
 {
     public class Enemy : Canvas
     {
-        public int HP {get; set;}
+        public int HP { get; set; }
         public int X { get; private set; }
         public int Y { get; private set; }
+        public int LastX { get; private set; }
+        public int LastY { get; private set; }
         public bool EnemyTurn = false;
-        string[] keys = ["W", "A", "S", "D"];
+        //string[] keys = ["W", "A", "S", "D"];
+        List<int[]> shifts = [[0, -1], [0, 1], [-1, 0], [1, 0]];
         Random rnd = new Random();
 
         public Enemy(int x, int y)
@@ -45,30 +48,37 @@ namespace cngrDice.Models
             Canvas.SetTop(this, y * 40.0);
         }
 
-        public void Move(List<List<int>> tiles, Dictionary<string, int[]> shifts, int time)
+        public void Move(List<List<int>> tiles, int time)
         {
             this.EnemyTurn = true;
 
             int fullSteps = 4;
+
+            int shiftTime = time;
 
             DoubleAnimationUsingKeyFrames animationX = new DoubleAnimationUsingKeyFrames();
             DoubleAnimationUsingKeyFrames animationY = new DoubleAnimationUsingKeyFrames();
 
             animationX.Completed += (s, e) => EnemyTurn = false;
 
+            LastX = X;
+            LastY = Y;
+
             while (fullSteps > 0)
             {
-                string key = keys[this.rnd.Next(4)];
+                //string key = keys[this.rnd.Next(4)];
 
-                int newX = this.X + shifts[key][0];
-                int newY = this.Y + shifts[key][1];
+                int[] shift = shifts[rnd.Next(4)];
+
+                int newX = this.X + shift[0];
+                int newY = this.Y + shift[1];
 
                 if (tiles[newY][newX] == 0)
                 {
-                    animationX.KeyFrames.Add(new LinearDoubleKeyFrame(newX * 40.0, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(time))));
-                    animationY.KeyFrames.Add(new LinearDoubleKeyFrame(newY * 40.0, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(time))));
+                    animationX.KeyFrames.Add(new LinearDoubleKeyFrame(newX * 40.0, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(shiftTime))));
+                    animationY.KeyFrames.Add(new LinearDoubleKeyFrame(newY * 40.0, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(shiftTime))));
 
-                    time += 500;
+                    shiftTime += time;
 
                     this.X = newX;
                     this.Y = newY;

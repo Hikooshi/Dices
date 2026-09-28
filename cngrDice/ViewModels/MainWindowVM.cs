@@ -38,29 +38,35 @@ namespace cngrDice.ViewModels
         }
 
         public RelayCommandParameters Move { get => mainGameModel.Move; }
+        public Thickness TextPosition { get => mainGameModel.TextPosition; }
 
         #region Dices ---------------------------------
         public ObservableCollection<string> DiceImages { get => mainGameModel.DiceImages; }
         public RelayCommand DropDicesCommand { get => mainGameModel.DropDices; }
+        public Canvas DiceCanvas { get => mainGameModel.DiceCanvas; }
         #endregion ------------------------------------------
 
         public bool PlayerTurn { get => mainGameModel.PlayerTurn; }
         public RelayCommand SwitchTurn { get => mainGameModel.SwitchTurn; }
 
-        double hpWIdth = 180;
-        public double HPWidth
-        {
-            get => hpWIdth;
-            private set => Set(ref hpWIdth, value);
-        }
+        //double hpWIdth = 180;
+        //public double HPWidth
+        //{
+        //    get => hpWIdth;
+        //    private set => Set(ref hpWIdth, value);
+        //}
 
-        double mpWidth = 180;
-        public double MPWidth
-        {
-            get => mpWidth;
-            private set => Set(ref mpWidth, value);
-        }
+        //double mpWidth = 180;
+        //public double MPWidth
+        //{
+        //    get => mpWidth;
+        //    private set => Set(ref mpWidth, value);
+        //}
 
-        public double AP { get => mainGameModel.AP * 15.0; }
+        //public double AP { get => mainGameModel.AP * 15.0; }
+
+        public ObservableCollection<Rectangle> HPData { get => mainGameModel.HPData; }
+        public ObservableCollection<Rectangle> MPData { get => mainGameModel.MPData; }
+        public ObservableCollection<Rectangle> APData { get => mainGameModel.APData; }
     }
 }

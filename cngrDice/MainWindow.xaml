@@ -64,12 +64,59 @@
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Vertical">
-                <!--Rectangle Height="10" Width="{Binding HPData}" Margin="44,8,8,8" Fill="Red" HorizontalAlignment="Left"/-->
-                <ContentControl Content="{Binding HPData}"/>
-                <!--Rectangle Height="10" Width="{Binding MPData}" Margin="44,4,8,4" Fill="Blue" HorizontalAlignment="Left"/-->
-                <ContentControl Content="{Binding MPData}"/>
-                <!--Rectangle Height="10" Width="{Binding APData}" Margin="44,8,8,8" Fill="Green" HorizontalAlignment="Left"/-->
-                <ContentControl Content="{Binding APData}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="HP" Foreground="Red" FontSize="18" Grid.Column="0" Grid.Row="0" Margin="8, 0, 4, 0"/>
+                    <ItemsControl ItemsSource="{Binding HPData}" Grid.Column="1" Grid.Row="0">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ContentControl Content="{Binding}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBlock Text="MP" Foreground="Blue" FontSize="18" Grid.Column="0" Grid.Row="1" Margin="8, 0, 4, 0"/>
+                    <ItemsControl ItemsSource="{Binding MPData}" Grid.Column="1" Grid.Row="1">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ContentControl Content="{Binding}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBlock Text="AP" Foreground="Green" FontSize="18" Grid.Column="0" Grid.Row="2" Margin="8, 0, 4, 0"/>
+                    <ItemsControl ItemsSource="{Binding APData}" Grid.Column="1" Grid.Row="2">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ContentControl Content="{Binding}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <!--Rectangle Height="10" Width="{Binding HPData}" Margin="44,8,8,8" Fill="Red" HorizontalAlignment="Left"/-->
+                    <!--Rectangle Height="10" Width="{Binding MPData}" Margin="44,4,8,4" Fill="Blue" HorizontalAlignment="Left"/-->
+                    <!--Rectangle Height="10" Width="{Binding APData}" Margin="44,8,8,8" Fill="Green" HorizontalAlignment="Left"/-->
+                </Grid>
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Horizontal">
                 <Border VerticalAlignment="Center" HorizontalAlignment="Left">

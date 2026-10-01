@@ -117,27 +117,23 @@ namespace cngrDice.Models
             PlayerTurn = false;
         }
         // Доделать текстовый функционал
-        string[] texts = new string[] { "1", "2", "3", "4" };
-        int counter = 0;
+        //string[] texts = new string[] { "1", "2", "3", "4" };
+        //int counter = 0;
 
-        string storyText = "";
+        //string storyText = "";
 
-        public string StoryText { get => storyText; set => Set(ref storyText, value); }
+        //public string StoryText { get => storyText; set => Set(ref storyText, value); }
+
+        public StoryTextModel storyTextModel = new StoryTextModel();
+
+        public string StoryText { get => storyTextModel.StoryText; }
 
         public RelayCommandParameters ChangeText { get => new(changeText); }
 
         void changeText(string key)
         {
-            int add = int.Parse(key);
-
-            int newValue = counter + add;
-
-            if (newValue < 0 || newValue == texts.Count())
-                return;
-
-            counter = newValue;
-
-            StoryText = texts[counter];
+            storyTextModel.changeText(key);
+            Notify(nameof(StoryText));
         }
         public MainGameModel()
         {
@@ -155,8 +151,6 @@ namespace cngrDice.Models
             player = new Player(playField.PlayerPosition[0], playField.PlayerPosition[1]);
 
             GameCanvas.Children.Add(player);
-
-            StoryText = texts[0];
 
             //AP = 0;
         }

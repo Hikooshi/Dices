@@ -25,6 +25,7 @@
     <None Remove="Images\Textures\Tile40x40.png" />
     <None Remove="Images\Textures\Tree40x40.png" />
     <None Remove="Images\Textures\Wood40x40.png" />
+    <None Remove="Texts\start.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -79,6 +80,7 @@
     <Resource Include="Images\Textures\Wood40x40.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Texts\*.txt" />
   </ItemGroup>
 
 </Project>

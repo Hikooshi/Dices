@@ -131,8 +131,8 @@
                     <TextBlock TextAlignment="Left" Padding="8,4,8,4" Text="{Binding StoryText}" FontSize="24" Foreground="AntiqueWhite" d:Text="Test" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 </Border>
                 <StackPanel>
-                    <Button Width="24" Height="32" Margin="4" BorderBrush="Transparent" Command="{Binding ChangeText}" CommandParameter="-1"/>
-                    <Button Width="24" Height="32" BorderBrush="Transparent" Command="{Binding ChangeText}" CommandParameter="1"/>
+                    <Button Width="24" Height="32" Margin="4" BorderBrush="Transparent" Command="{Binding ChangeText}" CommandParameter="-1" Focusable="False"/>
+                    <Button Width="24" Height="32" BorderBrush="Transparent" Command="{Binding ChangeText}" CommandParameter="1" Focusable="False"/>
                 </StackPanel>
             </StackPanel>
             <Border Grid.Column="2" Margin="16" Background="Gray" Width="100" CornerRadius="8">
